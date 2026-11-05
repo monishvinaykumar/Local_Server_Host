@@ -1,0 +1,142 @@
+[
+  {
+    "id": "proj_acads_imp",
+    "name": "ACADS_IMP",
+    "category": "Utilities",
+    "path": "C:\\Users\\monis\\Desktop\\FULLSTACK\\util-antigravity\\ACADS_IMP",
+    "type": "command",
+    "command": "npm run dev",
+    "port": 3000,
+    "autoOpen": true
+  },
+  {
+    "id": "proj_pdf_cutter",
+    "name": "PDF-CUTTER",
+    "category": "Utilities",
+    "path": "C:\\Users\\monis\\Desktop\\FULLSTACK\\util-antigravity\\PDF-CUTTER",
+    "type": "command",
+    "command": "npm run dev",
+    "port": 5173,
+    "autoOpen": true
+  },
+  {
+    "id": "proj_pdf_dark_mode",
+    "name": "pdf-dark-mode",
+    "category": "Utilities",
+    "path": "C:\\Users\\monis\\Desktop\\FULLSTACK\\util-antigravity\\pdf-dark-mode",
+    "type": "command",
+    "command": "npm run dev",
+    "port": 5174,
+    "autoOpen": true
+  },
+  {
+    "id": "proj_pdf_ppt_converter",
+    "name": "PDF-PPT_CONVERTER",
+    "category": "Utilities",
+    "path": "C:\\Users\\monis\\Desktop\\FULLSTACK\\util-antigravity\\PDF-PPT_CONVERTER",
+    "type": "command",
+    "command": "python app.py",
+    "port": 8000,
+    "autoOpen": true
+  },
+  {
+    "id": "proj_pdf_merger",
+    "name": "PDF_MERGER",
+    "category": "Utilities",
+    "path": "C:\\Users\\monis\\Desktop\\FULLSTACK\\util-antigravity\\PDF_MERGER",
+    "type": "command",
+    "command": "npm run dev",
+    "port": 5175,
+    "autoOpen": true
+  },
+  {
+    "id": "proj_cows_and_bulls",
+    "name": "cows-and-bulls",
+    "category": "Games",
+    "path": "C:\\Users\\monis\\Desktop\\FULLSTACK\\Games-antigravity\\cows-and-bulls",
+    "type": "static",
+    "command": "",
+    "port": 3010,
+    "autoOpen": true
+  },
+  {
+    "id": "proj_cows_bulls_online",
+    "name": "cows_bulls online",
+    "category": "Games",
+    "path": "C:\\Users\\monis\\Desktop\\FULLSTACK\\Games-antigravity\\cows_bulls online",
+    "type": "command",
+    "command": "npm start",
+    "port": 3011,
+    "autoOpen": true
+  },
+  {
+    "id": "proj_cricket_teams",
+    "name": "Cricket_Teams",
+    "category": "Games",
+    "path": "C:\\Users\\monis\\Desktop\\FULLSTACK\\Games-antigravity\\Cricket_Teams",
+    "type": "command",
+    "command": "npm start",
+    "port": 3012,
+    "autoOpen": true
+  },
+  {
+    "id": "proj_ds_bidding",
+    "name": "DS_BIDDING",
+    "category": "Games",
+    "path": "C:\\Users\\monis\\Desktop\\FULLSTACK\\Games-antigravity\\DS_BIDDING",
+    "type": "static",
+    "command": "",
+    "port": 3013,
+    "autoOpen": true
+  },
+  {
+    "id": "proj_ds_blindrankings",
+    "name": "DS_BlindRankings",
+    "category": "Games",
+    "path": "C:\\Users\\monis\\Desktop\\FULLSTACK\\Games-antigravity\\DS_BlindRankings",
+    "type": "static",
+    "command": "",
+    "port": 3014,
+    "autoOpen": true
+  },
+  {
+    "id": "proj_gswitch",
+    "name": "GSWITCH",
+    "category": "Games",
+    "path": "C:\\Users\\monis\\Desktop\\FULLSTACK\\Games-antigravity\\GSWITCH",
+    "type": "command",
+    "command": "npm start",
+    "port": 3015,
+    "autoOpen": true
+  },
+  {
+    "id": "proj_timer_game",
+    "name": "timer_game",
+    "category": "Games",
+    "path": "C:\\Users\\monis\\Desktop\\FULLSTACK\\Games-antigravity\\timer_game",
+    "type": "static",
+    "command": "",
+    "port": 3019,
+    "autoOpen": true
+  },
+  {
+    "id": "proj_chatgpt_extension",
+    "name": "CHAT_GPT_EXTENSION (Preview)",
+    "category": "Extensions",
+    "path": "C:\\Users\\monis\\Desktop\\util-antigravity\\CHAT_GPT_EXTENSION",
+    "type": "static",
+    "command": "",
+    "port": 3023,
+    "autoOpen": true
+  },
+  {
+    "id": "proj_brave_lock",
+    "name": "BRAVE_lock (Preview)",
+    "category": "Extensions",
+    "path": "C:\\Users\\monis\\Desktop\\util-antigravity\\BRAVE_lock\\brave-focus-lock",
+    "type": "static",
+    "command": "",
+    "port": 3024,
+    "autoOpen": true
+  }
+]

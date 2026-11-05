@@ -1,0 +1,17 @@
+{
+  "name": "local-server-host",
+  "version": "1.0.0",
+  "description": "Local Dev Hub & Server Manager for hosting and managing multiple local projects",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "dev-hub",
+    "local-server",
+    "dashboard",
+    "process-manager"
+  ],
+  "author": "monishvinaykumar",
+  "license": "ISC"
+}

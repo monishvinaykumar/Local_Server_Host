@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Local Dev Hub :5555</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #111827;
+      --card-border: #1f2937;
+      --card-hover: #1e293b;
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --accent: #6366f1;
+      --accent-hover: #4f46e5;
+      --success: #10b981;
+      --success-glow: rgba(16, 185, 129, 0.2);
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --code-bg: #030712;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      min-height: 100vh;
+      padding: 2rem 1.5rem 5rem 1.5rem;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #6366f1, #a855f7);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+    }
+
+    .brand h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .brand h1 span.badge {
+      font-size: 0.72rem;
+      background: #1e1b4b;
+      color: #818cf8;
+      border: 1px solid #3730a3;
+      padding: 0.15rem 0.5rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .brand p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.15rem;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.55rem 0.95rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      border: 1px solid transparent;
+      outline: none;
+      font-family: inherit;
+      text-decoration: none;
+      user-select: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+    .btn-primary:hover { background: var(--accent-hover); }
+
+    .btn-success {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+    .btn-success:hover {
+      background: rgba(16, 185, 129, 0.25);
+    }
+
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+    .btn-danger:hover {
+      background: rgba(239, 68, 68, 0.25);
+    }
+
+    .btn-secondary {
+      background: #1f2937;
+      color: #e5e7eb;
+      border-color: #374151;
+    }
+    .btn-secondary:hover {
+      background: #374151;
+      color: white;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-muted);
+    }
+    .btn-ghost:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .btn-sm {
+      padding: 0.35rem 0.65rem;
+      font-size: 0.75rem;
+    }
+
+    /* Controls Bar */
+    .controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      position: relative;
+      flex: 1;
+      max-width: 320px;
+    }
+
+    .search-box input {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 0.55rem 0.85rem 0.55rem 2.2rem;
+      color: var(--text-main);
+      font-size: 0.85rem;
+      font-family: inherit;
+    }
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .search-icon {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* Category Filter Tabs */
+    .category-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .cat-pill {
+      background: #111827;
+      border: 1px solid #1f2937;
+      color: var(--text-muted);
+      padding: 0.4rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .cat-pill:hover {
+      border-color: #374151;
+      color: white;
+    }
+    .cat-pill.active {
+      background: #1e1b4b;
+      border-color: #6366f1;
+      color: #818cf8;
+    }
+    .cat-count {
+      font-size: 0.7rem;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 0.1rem 0.4rem;
+      border-radius: 9999px;
+    }
+
+    /* Project Cards Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      position: relative;
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+
+    .project-card:hover {
+      border-color: #374151;
+      transform: translateY(-2px);
+    }
+
+    .project-card.running {
+      border-color: rgba(16, 185, 129, 0.4);
+      box-shadow: 0 0 20px var(--success-glow);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .card-title-group {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #fff;
+    }
+
+    .card-path {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 0.2rem;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.2rem 0.55rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      flex-shrink: 0;
+    }
+
+    .status-badge.stopped {
+      background: #1f2937;
+      color: #9ca3af;
+    }
+    .status-badge.running {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .status-badge.starting {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    .status-badge.error {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+    .status-badge.running .dot {
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: #1e293b;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      color: #94a3b8;
+    }
+
+    .tag-cat {
+      background: rgba(99, 102, 241, 0.12);
+      color: #a5b4fc;
+      border: 1px solid rgba(99, 102, 241, 0.25);
+    }
+
+    .tag-port {
+      background: rgba(99, 102, 241, 0.15);
+      color: #818cf8;
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .tag-port:hover {
+      background: #4f46e5;
+      color: white;
+    }
+
+    .card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: auto;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--card-border);
+    }
+
+    .card-footer-tools {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.25rem;
+    }
+
+    /* Logs Drawer */
+    .logs-drawer {
+      display: none;
+      background: var(--code-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      max-height: 180px;
+      overflow-y: auto;
+      color: #d1d5db;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    .logs-drawer.open { display: block; }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      width: 100%;
+      max-width: 540px;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-header h3 { font-size: 1.2rem; font-weight: 700; }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #d1d5db;
+    }
+    .form-group input, .form-group select {
+      background: #0b0f19;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 0.6rem 0.85rem;
+      color: white;
+      font-size: 0.85rem;
+      font-family: inherit;
+    }
+    .form-group input:focus, .form-group select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .form-help {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.6rem;
+      margin-top: 0.5rem;
+    }
+
+    /* Detected items in scan modal */
+    .scan-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      max-height: 280px;
+      overflow-y: auto;
+      margin: 0.5rem 0;
+    }
+    .scan-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: #0b0f19;
+      border: 1px solid var(--card-border);
+      padding: 0.65rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+    }
+    .scan-item input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--accent);
+    }
+    .scan-item-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .scan-item-name {
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .scan-item-sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 1.5rem;
+      background: var(--card-bg);
+      border: 1px dashed var(--card-border);
+      border-radius: 14px;
+      grid-column: 1 / -1;
+    }
+    .empty-state h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+    .empty-state p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: #1f2937;
+      color: white;
+      border: 1px solid #374151;
+      padding: 0.75rem 1.2rem;
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      font-size: 0.85rem;
+      font-weight: 500;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.25s ease;
+      z-index: 2000;
+    }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <div class="brand-icon">🚀</div>
+      <div>
+        <h1>Local Dev Hub <span class="badge">:5555</span></h1>
+        <p>Zero-terminal local server manager & automatic launcher</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-secondary" onclick="openScanModal()">
+        🔍 Scan Folder
+      </button>
+      <button class="btn btn-primary" onclick="openAddModal()">
+        ➕ Add Website
+      </button>
+    </div>
+  </header>
+
+  <!-- Category Filter Tabs -->
+  <div class="category-tabs" id="categoryTabs">
+    <button class="cat-pill active" data-cat="ALL" onclick="setCategory('ALL')">All <span class="cat-count" id="count-all">0</span></button>
+    <button class="cat-pill" data-cat="Utilities" onclick="setCategory('Utilities')">🛠️ Utilities <span class="cat-count" id="count-utilities">0</span></button>
+    <button class="cat-pill" data-cat="Games" onclick="setCategory('Games')">🎮 Games <span class="cat-count" id="count-games">0</span></button>
+    <button class="cat-pill" data-cat="Extensions" onclick="setCategory('Extensions')">🧩 Extensions <span class="cat-count" id="count-extensions">0</span></button>
+  </div>
+
+  <!-- Controls Bar -->
+  <div class="controls-bar">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Search projects or ports..." oninput="filterProjects()">
+    </div>
+    <div style="display: flex; gap: 0.5rem;">
+      <button class="btn btn-success btn-sm" onclick="startAll()">
+        ▶ Start All
+      </button>
+      <button class="btn btn-danger btn-sm" onclick="stopAll()">
+        ⏹ Stop All
+      </button>
+    </div>
+  </div>
+
+  <!-- Projects Grid -->
+  <div class="projects-grid" id="projectsGrid">
+    <!-- Rendered dynamically -->
+  </div>
+</div>
+
+<!-- Add / Edit Project Modal -->
+<div class="modal-overlay" id="projectModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modalTitle">Add New Website</h3>
+      <button class="btn btn-ghost" onclick="closeProjectModal()">✕</button>
+    </div>
+    <form id="projectForm" onsubmit="handleSaveProject(event)">
+      <input type="hidden" id="projId">
+      <div class="form-group">
+        <label>Website / Project Name</label>
+        <input type="text" id="projName" required placeholder="e.g. Daily Planner">
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <select id="projCategory">
+          <option value="Utilities">🛠️ Utilities</option>
+          <option value="Games">🎮 Games</option>
+          <option value="Extensions">🧩 Extensions</option>
+          <option value="General">📁 General</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Folder Path on Laptop</label>
+        <input type="text" id="projPath" required placeholder="C:\Users\monis\Desktop\FULLSTACK\DailyPlanner">
+        <span class="form-help">Absolute path to the project directory.</span>
+      </div>
+      <div class="form-group">
+        <label>Project Type</label>
+        <select id="projType" onchange="toggleTypeFields()">
+          <option value="command">Custom Command (npm run dev, python, etc.)</option>
+          <option value="static">Static HTML (Built-in Web Server - No npm needed)</option>
+        </select>
+      </div>
+      <div class="form-group" id="commandGroup">
+        <label>Dev Command</label>
+        <input type="text" id="projCommand" placeholder="e.g. npm run dev or python app.py">
+      </div>
+      <div class="form-group">
+        <label>Localhost Port</label>
+        <input type="number" id="projPort" required value="3000" min="1000" max="65535">
+        <span class="form-help">The website will run on http://localhost:[port]</span>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" onclick="closeProjectModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Project</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Scan Folder Modal -->
+<div class="modal-overlay" id="scanModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>🔍 Scan Folder for Websites</h3>
+      <button class="btn btn-ghost" onclick="closeScanModal()">✕</button>
+    </div>
+    <div class="form-group">
+      <label>Folder to scan</label>
+      <input type="text" id="scanDirPath" value="C:\Users\monis\Desktop\FULLSTACK">
+    </div>
+    <button class="btn btn-secondary btn-sm" style="align-self: flex-start;" onclick="runScan()">
+      Refresh Scan
+    </button>
+    <div id="scanResultsArea">
+      <div style="font-size: 0.8rem; color: var(--text-muted); margin: 0.5rem 0;">Detected projects ready to import:</div>
+      <div class="scan-list" id="scanList">
+        <div style="color: var(--text-muted); font-size: 0.8rem;">Click Refresh Scan to search...</div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-ghost" onclick="closeScanModal()">Cancel</button>
+      <button type="button" class="btn btn-primary" onclick="importSelected()">Import Selected</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+  let projects = [];
+  let detectedProjects = [];
+  let currentCategory = 'ALL';
+
+  // Fetch projects on load
+  async function loadProjects() {
+    try {
+      const res = await fetch('/api/projects');
+      projects = await res.json();
+      updateCategoryCounts();
+      renderProjects();
+    } catch (err) {
+      showToast('Error loading projects: ' + err.message);
+    }
+  }
+
+  // Connect SSE for real-time events
+  function initSSE() {
+    const evtSource = new EventSource('/api/events');
+
+    evtSource.addEventListener('status', (e) => {
+      const { projectId, status, port } = JSON.parse(e.data);
+      const proj = projects.find(p => p.id === projectId);
+      if (proj) {
+        proj.status = status;
+        if (port) proj.port = port;
+        renderProjects();
+      }
+    });
+
+    evtSource.addEventListener('log', (e) => {
+      const { projectId, line } = JSON.parse(e.data);
+      const proj = projects.find(p => p.id === projectId);
+      if (proj) {
+        if (!proj.logs) proj.logs = [];
+        proj.logs.push(line);
+        if (proj.logs.length > 300) proj.logs.shift();
+        appendLogToDrawer(projectId, line);
+      }
+    });
+  }
+
+  function appendLogToDrawer(projectId, line) {
+    const el = document.getElementById(`logs-${projectId}`);
+    if (el) {
+      el.textContent += line + '\n';
+      el.scrollTop = el.scrollHeight;
+    }
+  }
+
+  function updateCategoryCounts() {
+    const counts = { ALL: projects.length, Games: 0, Utilities: 0, Extensions: 0 };
+    projects.forEach(p => {
+      const c = p.category || 'General';
+      if (counts[c] !== undefined) counts[c]++;
+    });
+
+    document.getElementById('count-all').textContent = counts.ALL;
+    document.getElementById('count-games').textContent = counts.Games;
+    document.getElementById('count-utilities').textContent = counts.Utilities;
+    document.getElementById('count-extensions').textContent = counts.Extensions;
+  }
+
+  function setCategory(cat) {
+    currentCategory = cat;
+    document.querySelectorAll('.cat-pill').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-cat') === cat);
+    });
+    renderProjects();
+  }
+
+  // Render cards safely
+  function renderProjects() {
+    const query = document.getElementById('searchInput').value.toLowerCase().trim();
+    const container = document.getElementById('projectsGrid');
+
+    const filtered = projects.filter(p => {
+      const matchesCat = currentCategory === 'ALL' || (p.category === currentCategory);
+      const matchesSearch = !query || 
+        p.name.toLowerCase().includes(query) || 
+        p.path.toLowerCase().includes(query) ||
+        (p.category && p.category.toLowerCase().includes(query)) ||
+        String(p.port).includes(query);
+      return matchesCat && matchesSearch;
+    });
+
+    if (projects.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <h3>No websites added yet</h3>
+          <p>Click "Scan Folder" to import your sites!</p>
+          <button class="btn btn-primary" onclick="openScanModal()">🔍 Scan Folder</button>
+        </div>
+      `;
+      return;
+    }
+
+    if (filtered.length === 0) {
+      container.innerHTML = `<div class="empty-state"><h3>No matching websites found</h3><p>Try changing the category filter or searching another keyword.</p></div>`;
+      return;
+    }
+
+    container.innerHTML = filtered.map(p => {
+      const isRunning = p.status === 'running';
+      const isStarting = p.status === 'starting';
+      const statusClass = p.status || 'stopped';
+      const targetUrl = `http://localhost:${p.port}`;
+
+      return `
+        <div class="project-card ${isRunning ? 'running' : ''}" id="card-${p.id}">
+          <div class="card-top">
+            <div class="card-title-group">
+              <div class="card-title" title="${escapeHtml(p.name)}">${escapeHtml(p.name)}</div>
+              <div class="card-path" title="${escapeHtml(p.path)}">${escapeHtml(p.path)}</div>
+            </div>
+            <div class="status-badge ${statusClass}">
+              <span class="dot"></span>
+              ${isStarting ? 'Starting...' : isRunning ? `Port ${p.port}` : 'Stopped'}
+            </div>
+          </div>
+
+          <div class="card-meta">
+            ${p.category ? `<span class="tag tag-cat">${escapeHtml(p.category)}</span>` : ''}
+            <span class="tag">${p.type === 'static' ? 'Static Site' : 'Command'}</span>
+            ${p.command ? `<span class="tag">${escapeHtml(p.command)}</span>` : ''}
+            <a href="${targetUrl}" target="_blank" rel="noopener" class="tag tag-port" title="Click to open :${p.port}">
+              :${p.port} ↗
+            </a>
+          </div>
+
+          <!-- Actions -->
+          <div class="card-actions">
+            ${isRunning ? `
+              <button class="btn btn-danger btn-sm" onclick="stopProject('${p.id}')">
+                ⏹ Stop
+              </button>
+              <a href="${targetUrl}" target="_blank" rel="noopener" class="btn btn-primary btn-sm" style="color: white; text-decoration: none;">
+                🌐 Open Browser
+              </a>
+            ` : `
+              <button class="btn btn-success btn-sm" onclick="startProject('${p.id}')" ${isStarting ? 'disabled' : ''}>
+                ${isStarting ? '⏳ Starting...' : '▶ Start & Open'}
+              </button>
+            `}
+            <button class="btn btn-secondary btn-sm" onclick="toggleLogs('${p.id}')">
+              📜 Logs
+            </button>
+          </div>
+
+          <!-- Logs Drawer: using pre with escapeHtml to prevent HTML corruption -->
+          <pre class="logs-drawer" id="logs-${p.id}">${escapeHtml((p.logs || []).join('\n'))}</pre>
+
+          <!-- Tools -->
+          <div class="card-footer-tools">
+            <div style="display: flex; gap: 0.25rem;">
+              <button class="btn btn-ghost btn-sm" title="Open Folder in Explorer" onclick="openFolder('${p.id}')">📂 Folder</button>
+              <button class="btn btn-ghost btn-sm" title="Open in VS Code" onclick="openVsCode('${p.id}')">💻 VS Code</button>
+            </div>
+            <div style="display: flex; gap: 0.25rem;">
+              <button class="btn btn-ghost btn-sm" title="Edit" onclick="editProject('${p.id}')">✏ Edit</button>
+              <button class="btn btn-ghost btn-sm" style="color: #f87171;" title="Delete" onclick="deleteProject('${p.id}')">🗑</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function filterProjects() {
+    renderProjects();
+  }
+
+  // Toggle Project Type form inputs
+  function toggleTypeFields() {
+    const type = document.getElementById('projType').value;
+    document.getElementById('commandGroup').style.display = type === 'command' ? 'flex' : 'none';
+  }
+
+  // Project API calls
+  async function startProject(id) {
+    const proj = projects.find(p => p.id === id);
+    if (!proj) return;
+    const targetUrl = `http://localhost:${proj.port}`;
+
+    proj.status = 'starting';
+    renderProjects();
+    showToast(`Starting ${proj.name}...`);
+
+    try {
+      const res = await fetch(`/api/projects/${id}/start`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ openBrowser: true })
+      });
+      const data = await res.json();
+      if (data.ok) {
+        showToast(`Running! Opening http://localhost:${proj.port}`);
+        // Frontend opens the tab directly in user's browser!
+        setTimeout(() => {
+          window.open(targetUrl, '_blank');
+        }, proj.type === 'static' ? 300 : 1800);
+      }
+    } catch (err) {
+      showToast('Failed to start: ' + err.message);
+    }
+  }
+
+  async function stopProject(id) {
+    const proj = projects.find(p => p.id === id);
+    try {
+      showToast('Stopping ' + (proj ? proj.name : 'server') + '...');
+      await fetch(`/api/projects/${id}/stop`, { method: 'POST' });
+    } catch (err) {
+      showToast('Failed to stop: ' + err.message);
+    }
+  }
+
+  function openInBrowser(id) {
+    const proj = projects.find(p => p.id === id);
+    if (proj) {
+      window.open(`http://localhost:${proj.port}`, '_blank');
+      fetch(`/api/projects/${id}/open`, { method: 'POST' }).catch(() => {});
+    }
+  }
+
+  async function openFolder(id) {
+    await fetch(`/api/projects/${id}/open-folder`, { method: 'POST' });
+  }
+
+  async function openVsCode(id) {
+    await fetch(`/api/projects/${id}/open-vscode`, { method: 'POST' });
+  }
+
+  async function startAll() {
+    showToast('Starting all servers...');
+    await fetch('/api/start-all', { method: 'POST' });
+  }
+
+  async function stopAll() {
+    showToast('Stopping all servers...');
+    await fetch('/api/stop-all', { method: 'POST' });
+  }
+
+  function toggleLogs(id) {
+    const el = document.getElementById(`logs-${id}`);
+    if (el) {
+      el.classList.toggle('open');
+      if (el.classList.contains('open')) {
+        el.scrollTop = el.scrollHeight;
+      }
+    }
+  }
+
+  // Add / Edit Modal
+  function openAddModal() {
+    document.getElementById('projId').value = '';
+    document.getElementById('projName').value = '';
+    document.getElementById('projCategory').value = 'Utilities';
+    document.getElementById('projPath').value = 'C:\\Users\\monis\\Desktop\\';
+    document.getElementById('projType').value = 'command';
+    document.getElementById('projCommand').value = 'npm run dev';
+    document.getElementById('projPort').value = getNextAvailablePort();
+    document.getElementById('modalTitle').textContent = 'Add New Website';
+    toggleTypeFields();
+    document.getElementById('projectModal').classList.add('open');
+  }
+
+  function editProject(id) {
+    const proj = projects.find(p => p.id === id);
+    if (!proj) return;
+    document.getElementById('projId').value = proj.id;
+    document.getElementById('projName').value = proj.name;
+    document.getElementById('projCategory').value = proj.category || 'General';
+    document.getElementById('projPath').value = proj.path;
+    document.getElementById('projType').value = proj.type || 'command';
+    document.getElementById('projCommand').value = proj.command || '';
+    document.getElementById('projPort').value = proj.port;
+    document.getElementById('modalTitle').textContent = 'Edit Website';
+    toggleTypeFields();
+    document.getElementById('projectModal').classList.add('open');
+  }
+
+  function closeProjectModal() {
+    document.getElementById('projectModal').classList.remove('open');
+  }
+
+  async function handleSaveProject(e) {
+    e.preventDefault();
+    const id = document.getElementById('projId').value;
+    const payload = {
+      name: document.getElementById('projName').value.trim(),
+      category: document.getElementById('projCategory').value,
+      path: document.getElementById('projPath').value.trim(),
+      type: document.getElementById('projType').value,
+      command: document.getElementById('projCommand').value.trim(),
+      port: Number(document.getElementById('projPort').value),
+    };
+
+    try {
+      if (id) {
+        await fetch(`/api/projects/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        showToast('Updated ' + payload.name);
+      } else {
+        await fetch('/api/projects', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        showToast('Added ' + payload.name);
+      }
+      closeProjectModal();
+      loadProjects();
+    } catch (err) {
+      showToast('Error saving: ' + err.message);
+    }
+  }
+
+  async function deleteProject(id) {
+    const proj = projects.find(p => p.id === id);
+    if (!confirm(`Are you sure you want to remove "${proj ? proj.name : 'this website'}" from Hub?`)) return;
+    await fetch(`/api/projects/${id}`, { method: 'DELETE' });
+    showToast('Removed website');
+    loadProjects();
+  }
+
+  // Scan modal
+  function openScanModal() {
+    document.getElementById('scanModal').classList.add('open');
+    runScan();
+  }
+
+  function closeScanModal() {
+    document.getElementById('scanModal').classList.remove('open');
+  }
+
+  async function runScan() {
+    const dir = document.getElementById('scanDirPath').value;
+    const list = document.getElementById('scanList');
+    list.innerHTML = `<div style="color: var(--text-muted); font-size: 0.8rem;">Scanning ${dir}...</div>`;
+
+    try {
+      const res = await fetch('/api/scan', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ directory: dir })
+      });
+      const data = await res.json();
+      detectedProjects = data.detected || [];
+
+      if (detectedProjects.length === 0) {
+        list.innerHTML = `<div style="color: var(--text-muted); font-size: 0.8rem;">No unimported projects found in this directory.</div>`;
+        return;
+      }
+
+      list.innerHTML = detectedProjects.map((p, idx) => `
+        <label class="scan-item">
+          <input type="checkbox" id="scan-check-${idx}" checked>
+          <div class="scan-item-info">
+            <div class="scan-item-name">${escapeHtml(p.name)}</div>
+            <div class="scan-item-sub">${escapeHtml(p.path)} · [${p.type}] · Port ${p.port}</div>
+          </div>
+        </label>
+      `).join('');
+    } catch (err) {
+      list.innerHTML = `<div style="color: #f87171; font-size: 0.8rem;">Scan failed: ${err.message}</div>`;
+    }
+  }
+
+  async function importSelected() {
+    const toImport = [];
+    detectedProjects.forEach((p, idx) => {
+      const chk = document.getElementById(`scan-check-${idx}`);
+      if (chk && chk.checked) toImport.push(p);
+    });
+
+    if (toImport.length === 0) {
+      showToast('No projects selected');
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/import-batch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ projects: toImport })
+      });
+      const data = await res.json();
+      showToast(`Imported ${data.addedCount} websites!`);
+      closeScanModal();
+      loadProjects();
+    } catch (err) {
+      showToast('Import failed: ' + err.message);
+    }
+  }
+
+  function getNextAvailablePort() {
+    let port = 3001;
+    const ports = new Set(projects.map(p => Number(p.port)));
+    while (ports.has(port) || port === 5555) port++;
+    return port;
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2800);
+  }
+
+  function escapeHtml(str) {
+    return (str || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  // Initialize
+  loadProjects();
+  initSSE();
+</script>
+
+</body>
+</html>
