@@ -506,7 +506,11 @@ const server = http.createServer(async (req, res) => {
     const projects = loadProjects();
     const project = projects.find((p) => p.id === id);
     if (!project) return sendJson({ error: 'Project not found' }, 404);
-    exec(`explorer "${project.path}"`);
+    if (process.platform === 'win32') {
+      exec(`explorer "${project.path}"`, () => {});
+    } else {
+      exec(`xdg-open "${project.path}" || open "${project.path}"`, () => {});
+    }
     return sendJson({ ok: true });
   }
 
@@ -515,7 +519,7 @@ const server = http.createServer(async (req, res) => {
     const projects = loadProjects();
     const project = projects.find((p) => p.id === id);
     if (!project) return sendJson({ error: 'Project not found' }, 404);
-    exec(`code "${project.path}"`);
+    exec(`code "${project.path}"`, () => {});
     return sendJson({ ok: true });
   }
 
@@ -616,7 +620,7 @@ server.on('error', (err) => {
   process.exit(1);
 });
 
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
   const startupMsg = [
     `===============================================`,
     `  🚀 Local Dev Hub is running on port ${PORT}`,

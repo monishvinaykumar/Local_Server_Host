@@ -811,7 +811,7 @@
       const isRunning = p.status === 'running';
       const isStarting = p.status === 'starting';
       const statusClass = p.status || 'stopped';
-      const targetUrl = `http://localhost:${p.port}`;
+      const targetUrl = p.url || `http://localhost:${p.port}`;
 
       return `
         <div class="project-card ${isRunning ? 'running' : ''}" id="card-${p.id}">
@@ -887,7 +887,7 @@
   async function startProject(id) {
     const proj = projects.find(p => p.id === id);
     if (!proj) return;
-    const targetUrl = `http://localhost:${proj.port}`;
+    const targetUrl = proj.url || `http://localhost:${proj.port}`;
 
     proj.status = 'starting';
     renderProjects();
@@ -901,7 +901,7 @@
       });
       const data = await res.json();
       if (data.ok) {
-        showToast(`Running! Opening http://localhost:${proj.port}`);
+        showToast(`Running! Opening ${targetUrl}`);
         // Frontend opens the tab directly in user's browser!
         setTimeout(() => {
           window.open(targetUrl, '_blank');
@@ -925,7 +925,8 @@
   function openInBrowser(id) {
     const proj = projects.find(p => p.id === id);
     if (proj) {
-      window.open(`http://localhost:${proj.port}`, '_blank');
+      const targetUrl = proj.url || `http://localhost:${proj.port}`;
+      window.open(targetUrl, '_blank');
       fetch(`/api/projects/${id}/open`, { method: 'POST' }).catch(() => {});
     }
   }
