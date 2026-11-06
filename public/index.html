@@ -897,12 +897,12 @@
       const res = await fetch(`/api/projects/${id}/start`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ openBrowser: true })
+        body: JSON.stringify({ openBrowser: false })
       });
       const data = await res.json();
       if (data.ok) {
         showToast(`Running! Opening ${targetUrl}`);
-        // Frontend opens the tab directly in user's browser!
+        // Frontend opens exactly one tab in user's browser!
         setTimeout(() => {
           window.open(targetUrl, '_blank');
         }, proj.type === 'static' ? 300 : 1800);
@@ -927,7 +927,6 @@
     if (proj) {
       const targetUrl = proj.url || `http://localhost:${proj.port}`;
       window.open(targetUrl, '_blank');
-      fetch(`/api/projects/${id}/open`, { method: 'POST' }).catch(() => {});
     }
   }
 

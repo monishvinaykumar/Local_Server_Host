@@ -108,21 +108,48 @@ function killProcessTree(pid) {
   });
 }
 
+// Free port if occupied by any lingering orphaned process
+function freePort(port) {
+  return new Promise((resolve) => {
+    if (!port || process.platform !== 'win32') return resolve();
+    exec(
+      `powershell -NoProfile -Command "Get-NetTCPConnection -LocalPort ${port} -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess -Unique | ForEach-Object { Stop-Process -Id $_ -Force }"`,
+      () => resolve()
+    );
+  });
+}
+
 // Create built-in static file server for a project
 function createStaticServer(project) {
   const server = http.createServer((req, res) => {
     let reqUrl = decodeURI(req.url.split('?')[0]);
-    if (reqUrl === '/') reqUrl = '/index.html';
+    if (reqUrl === '/') {
+      if (fs.existsSync(path.join(project.path, 'index.html'))) {
+        reqUrl = '/index.html';
+      } else if (fs.existsSync(path.join(project.path, 'popup.html'))) {
+        reqUrl = '/popup.html';
+      } else {
+        try {
+          const files = fs.readdirSync(project.path);
+          const html = files.find((f) => f.toLowerCase().endsWith('.html'));
+          reqUrl = html ? '/' + html : '/index.html';
+        } catch {
+          reqUrl = '/index.html';
+        }
+      }
+    }
 
     const safePath = path.normalize(reqUrl).replace(/^(\.\.[\/\\])+/, '');
     let filePath = path.join(project.path, safePath);
 
     fs.stat(filePath, (err, stats) => {
       if (err || !stats.isFile()) {
-        // Try fallback to index.html for SPA routing if available
         const indexPath = path.join(project.path, 'index.html');
+        const popupPath = path.join(project.path, 'popup.html');
         if (fs.existsSync(indexPath)) {
           filePath = indexPath;
+        } else if (fs.existsSync(popupPath)) {
+          filePath = popupPath;
         } else {
           res.writeHead(404, { 'Content-Type': 'text/plain' });
           return res.end('404 Not Found');
@@ -145,7 +172,7 @@ function createStaticServer(project) {
 }
 
 // Start a project
-async function startProject(projectId, triggerBrowser = true) {
+async function startProject(projectId, triggerBrowser = false) {
   const projects = loadProjects();
   const project = projects.find((p) => p.id === projectId);
   if (!project) throw new Error('Project not found');
@@ -159,6 +186,9 @@ async function startProject(projectId, triggerBrowser = true) {
   if (r.status === 'running' || r.status === 'starting') {
     return { ok: true, alreadyRunning: true };
   }
+
+  // Ensure port is completely free before starting
+  await freePort(project.port);
 
   r.status = 'starting';
   appendLog(projectId, `Starting "${project.name}"...`);
@@ -474,7 +504,7 @@ const server = http.createServer(async (req, res) => {
   if (pathname.match(/^\/api\/projects\/[^/]+\/start$/) && method === 'POST') {
     const id = pathname.split('/')[3];
     try {
-      const openBrowserOnStart = body.openBrowser !== false;
+      const openBrowserOnStart = body.openBrowser === true;
       const resData = await startProject(id, openBrowserOnStart);
       return sendJson(resData);
     } catch (err) {

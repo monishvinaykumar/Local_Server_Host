@@ -15,7 +15,7 @@
     "category": "Utilities",
     "path": "C:\\Users\\monis\\Desktop\\FULLSTACK\\util-antigravity\\PDF-CUTTER",
     "type": "command",
-    "command": "npm run dev",
+    "command": "npm run dev -- --port 5173",
     "port": 5173,
     "autoOpen": true
   },
@@ -25,7 +25,7 @@
     "category": "Utilities",
     "path": "C:\\Users\\monis\\Desktop\\FULLSTACK\\util-antigravity\\pdf-dark-mode",
     "type": "command",
-    "command": "npm run dev",
+    "command": "npm run dev -- --port 5174",
     "port": 5174,
     "autoOpen": true
   },
@@ -45,8 +45,18 @@
     "category": "Utilities",
     "path": "C:\\Users\\monis\\Desktop\\FULLSTACK\\util-antigravity\\PDF_MERGER",
     "type": "command",
-    "command": "npm run dev",
+    "command": "npm run dev -- --port 5175",
     "port": 5175,
+    "autoOpen": true
+  },
+  {
+    "id": "proj_focus_timer",
+    "name": "FOCUS TIMER",
+    "category": "Utilities",
+    "path": "C:\\Users\\monis\\Desktop\\FULLSTACK\\util-antigravity\\FOCUS TIMER",
+    "type": "static",
+    "command": "",
+    "port": 3016,
     "autoOpen": true
   },
   {
@@ -110,6 +120,26 @@
     "autoOpen": true
   },
   {
+    "id": "proj_ipl_auction",
+    "name": "Ipl_auction",
+    "category": "Games",
+    "path": "C:\\Users\\monis\\Desktop\\FULLSTACK\\Games-antigravity\\Ipl_auction",
+    "type": "command",
+    "command": "npm start",
+    "port": 3017,
+    "autoOpen": true
+  },
+  {
+    "id": "proj_op_bidding",
+    "name": "OP_BIDDING",
+    "category": "Games",
+    "path": "C:\\Users\\monis\\Desktop\\FULLSTACK\\Games-antigravity\\OP_BIDDING",
+    "type": "command",
+    "command": "npm start",
+    "port": 3018,
+    "autoOpen": true
+  },
+  {
     "id": "proj_timer_game",
     "name": "timer_game",
     "category": "Games",
@@ -117,6 +147,26 @@
     "type": "static",
     "command": "",
     "port": 3019,
+    "autoOpen": true
+  },
+  {
+    "id": "proj_op_team_game",
+    "name": "OP_ONLINE_TEAM_GAME",
+    "category": "Games",
+    "path": "C:\\Users\\monis\\Desktop\\FULLSTACK\\Games-antigravity\\OP_ONLINE_TEAM_GAME",
+    "type": "command",
+    "command": "npm start",
+    "port": 3020,
+    "autoOpen": true
+  },
+  {
+    "id": "proj_wordle_online",
+    "name": "WORDLE_ONLINE",
+    "category": "Games",
+    "path": "C:\\Users\\monis\\Desktop\\FULLSTACK\\Games-antigravity\\WORDLE_ONLINE",
+    "type": "command",
+    "command": "npm start",
+    "port": 3021,
     "autoOpen": true
   },
   {
